@@ -1,0 +1,356 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Resume</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <style>
+      .narrow {
+        max-width: 900px;
+      }      
+      .video {
+      width: 100%;
+      aspect-ratio: 16 / 9; /* keeps 16:9 ratio */
+      border: 0;
+      border-radius: 12px;
+      }
+      
+.media {
+      width: 100%;
+      margin-inline: auto;
+    }
+
+.responsive-imgs {
+      display: block;
+      max-width: 100%;
+      height: auto;         /* keeps aspect ratio */
+      border-radius: 10px;
+    }
+    .chart-card {
+      max-width: 900px;      /* optional cap */
+      margin: 2rem auto;
+    }
+    .chart-wrap {
+      position: relative;
+      width: 100%;
+      /* Use aspect-ratio for consistent height across widths */
+      aspect-ratio: 16 / 9;
+    }
+    .chart-wrap canvas {
+      /* Ensure canvas fills the wrapper */
+      width: 100% !important;
+      height: 100% !important;
+    }
+    </style>
+ </head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class='container'>
+        <a class="navbar-brand" href="#">Profile</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto ">
+            <li class="nav-item">
+              <a class="nav-link" href="#summary">Summary</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#skill">Skills</a>
+            </li>            
+            <li class="nav-item">
+                <a class="nav-link" href="#experience">Experience</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#education">Education</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#certification">Certification</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      </nav>
+      <main class="container my-4 narrow" id="app" role="main" tabindex="-1">
+        <section id="summary" class="page-section">
+          <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-3">
+            <div>
+              <h1 class="h3 mb-1">SP Oviya</h1>
+              <p class="text-body-secondary mb-2">Frontend Developer</p>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="badge text-bg-primary">React JS</span>
+                <span class="badge text-bg-secondary">JavaScript</span>
+                <span class="badge text-bg-success">HTML&CSS</span>
+                <span class="badge text-bg-warning text-dark">jQuery</span>
+                <span class="badge text-bg-info text-dark">Bootstrap</span>
+                <span class="badge text-bg-dark">AEM Frontend</span>
+              </div>
+            </div>
+          </div>
+  
+          <hr class="my-4" />
+  
+          <p class="d-none">
+            Frontend developer with experience building scalable, accessible interfaces using
+            React, JavaScript, HTML, and CSS. Passionate about clean UI, performance, and great user
+            experience. Open to opportunities that foster growth and collaboration.
+          </p>
+          <p class="lead">
+            Proactive and dedicated front-end developer with 4 years of experience in building user-centric web
+applications using React, Redux, Material UI and JS. Skilled in crafting responsive, interactive interfaces and
+optimizing performance, with a strong focus on enhancing user experience.
+          </p>
+  
+          <div class="row g-3">
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h2 class="h6">Location</h2>
+                  <p class="mb-0">Coimbatore, TN</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h2 class="h6">Experience</h2>
+                  <p class="mb-0">4–5 years</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h2 class="h6">Focus</h2>
+                  <p class="mb-0">React 18</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>        
+        <hr class="my-4" />
+        <section id="skill" class="page-section">
+          <h2 class="h4 mb-3">Skills</h2>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h3 class="h6">Frontend</h3>
+                  <div class="mb-2">HTML5 <div class="progress"><div class="progress-bar" style="width: 90%"></div></div></div>
+                  <div class="mb-2">CSS3 / LESS <div class="progress"><div class="progress-bar bg-success" style="width: 85%"></div></div></div>
+                  <div class="mb-2">JavaScript (ES6+) <div class="progress"><div class="progress-bar bg-info" style="width: 90%"></div></div></div>
+                  <div class="mb-2">jQuery <div class="progress"><div class="progress-bar bg-warning" style="width: 70%"></div></div></div>
+                  <div class="mb-2">React / Redux Toolkit <div class="progress"><div class="progress-bar bg-primary" style="width: 80%"></div></div></div>
+                  <div class="mb-2">Bootstrap / MUI <div class="progress"><div class="progress-bar bg-secondary" style="width: 80%"></div></div></div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-md-6">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h3 class="h6">Ecosystem & Quality</h3>
+                  <ul class="mb-0">
+                    <li>Accessibility (ARIA), cross-browser compatibility</li>
+                    <li>Performance optimization, memoization</li>
+                    <li>AEM authoring</li>
+                    <li>Unit testing</li>
+                    <li>Git,Bitbuket</li>
+                    <li>REST Api</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>  
+        
+        <hr class="my-4" />
+        <section id="experience" class="page-section">
+          <h2 class="h4 mb-3">Experience</h2>
+  
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="d-flex justify-content-between flex-wrap gap-2">
+                <h3 class="h6 mb-0">Associate - Frontend Developer</h3>
+                <span class="text-body-secondary">2023 – Present</span>
+              </div>
+              <p class="mb-2 text-body-secondary">Cognizant</p>
+              <ul class="mb-0">                
+                <li>Delivered features with React 18, Router and MUI.</li>
+                <li>Handled unit testing and ensured cross-browser stability.</li>
+                <li>Maintained Application state with Redux Toolkit</li>
+              </ul>
+            </div>
+          </div>
+  
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="d-flex justify-content-between flex-wrap gap-2">
+                <h3 class="h6 mb-0">PA - UI Developer</h3>
+                <span class="text-body-secondary">2021 – 2023</span>
+              </div>
+              <p class="mb-2 text-body-secondary">Cognizant</p>
+              <ul class="mb-0">                
+                <li>Built and maintained AEM-based applications with reusable UI components.</li>
+                <li>Implemented accessibility best practices and improved performance.</li>
+                <li>Collaborated across teams, mentored juniors and supported knowledge sharing.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <hr class="my-4" />
+        <section id="education" class="page-section">
+          <h2 class="h4 mb-3">Qualification</h2>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <strong>B.E</strong> - Computer Science (2017-2021)
+              <div class="small text-body-secondary">Dr.MCET - Pollachi</div>
+            </li>
+          </ul>
+        </section>
+  
+        <hr class="my-4" />
+        <section id="certification" class="page-section">
+          <h2 class="h4 mb-3">Certification</h2>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h3 class="h6 mb-1">React – The Complete Guide (Udemy)</h3>
+                  <p class="text-body-secondary mb-2">Completed: 2025</p>
+                  <p class="mb-0">Hands-on with React 18, hooks, state management, and performance.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h3 class="h6 mb-1">Advanced JavaScript (Udemy)</h3>
+                  <p class="text-body-secondary mb-2">Completed: 2025</p>
+                  <p class="mb-0">Deep dive into event loop, microtasks/macrotasks, and async patterns.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <hr class="my-4" />
+        <section id="contact" class="page-section">
+          <h2 class="h4 mb-3">Contact</h2>
+          <form class="row g-3 needs-validation" novalidate id="contactForm">
+            <div class="col-md-6">
+              <label for="name" class="form-label">Name</label>
+              <input id="name" name="name" type="text" class="form-control" required />
+              <div class="invalid-feedback">Please enter your name.</div>
+            </div>
+            <div class="col-md-6">
+              <label for="email" class="form-label">Email</label>
+              <input id="email" name="email" type="email" class="form-control" required />
+              <div class="invalid-feedback">Please enter a valid email.</div>
+            </div>
+            <div class="col-12">
+              <label for="subject" class="form-label">Subject</label>
+              <input id="subject" name="subject" type="text" class="form-control" required />
+              <div class="invalid-feedback">Please add a subject.</div>
+            </div>
+            <div class="col-12">
+              <label for="message" class="form-label">Message</label>
+              <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+              <div class="invalid-feedback">Please write a message.</div>
+            </div>
+            <div class="col-12 d-flex gap-2">
+              <button class="btn btn-primary" type="submit">Send</button>
+              <button class="btn btn-outline-secondary" type="reset">Reset</button>
+            </div>
+          </form>
+        </section>
+
+        <hr class="my-4" />
+        <section>
+          <h2 class="h4 mb-3">Media</h2>               
+          <div class="media m-2 p-2">
+          <div class="embed-responsive mb-3">            
+            <iframe class="embed-responsive-item video" src="https://www.youtube.com/embed/jXHOHOYkbYc?si=PrPZedR_Phd_DVmE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>     
+          <img
+            class="responsive-img img-fluid"
+            src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1600"
+            alt="Mountain landscape during golden hour"
+            loading="lazy"
+            width="1600"
+            height="900"
+          />
+          </div>
+
+          <div class="container">
+            <div class="card shadow-sm chart-card">
+              <div class="card-body">
+                <h5 class="card-title mb-3">Sales Trend (Last 6 Months)</h5>
+                <div class="chart-wrap">
+                  <canvas id="salesChart" aria-label="Sales Line Chart" role="img"></canvas>
+                </div>
+              </div>
+            </div>
+        </section>
+        </main>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script>
+    const ctx = document.getElementById('salesChart');
+
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'],
+        datasets: [
+          {
+            label: 'Revenue',
+            data: [12, 19, 15, 23, 18, 26],
+            borderColor: '#0d6efd',       // Bootstrap primary
+            backgroundColor: 'rgba(13,110,253,.15)',
+            fill: true,
+            tension: 0.35,
+            pointRadius: 3,
+            pointHoverRadius: 5
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false, // we control it via CSS aspect-ratio
+        plugins: {
+          legend: { display: true, labels: { boxWidth: 12 } },
+          tooltip: { mode: 'index', intersect: false }
+        },
+        interaction: { mode: 'nearest', intersect: false },
+        scales: {
+          x: { grid: { display: false } },
+          y: {
+            beginAtZero: true,
+            ticks: { stepSize: 5 }
+          }
+        }
+      }
+    });
+
+    // Optional: Resize observer (helps when charts live in hidden tabs)
+    new ResizeObserver(() => chart.resize()).observe(document.body);
+  </script>
+        </html>

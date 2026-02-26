@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Real-Time Clock — Bootstrap</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+
+  <style>
+    :root {
+      --prim-color: #0d6efd;
+    }
+    body {
+      background: #f8fafc;
+    }
+    .clock-card {
+      max-width: 900px;
+      margin: 4rem auto;
+      border-radius: 1rem;
+    }
+    .clock,.counter {
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: var(--prim-color);
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+      font-size: 40px;
+      /*font-size: clamp(2.4rem, 7vw, 5rem);*/
+    }
+    .date-line {
+     font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: #475569;
+    }
+    .form-label,.summary-flex p{
+        color: #475569;
+    }
+    .summary-flex p span{
+        font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+    <div class="container px-3">
+        <div class="card shadow clock-card">
+            <div class="card-body p-4 p-sm-5">
+
+              <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3">
+                <h1 class="h4 mb-1">Real Date & Time</h1>
+                  <div class="btn-group" role="group" aria-label="Hour format">
+                    <input type="radio" class="btn-check" name="hourFormat" id="fmt12" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary" for="fmt12">12‑hour</label>
+                    <input type="radio" class="btn-check" name="hourFormat" id="fmt24" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="fmt24">24‑hour</label>
+                  </div>
+              </div>
+
+              <div class="text-center text-md-start">
+                <div class="clock" id="clck">--:--:--</div>
+                <div class="date-line mt-2">
+                  <span id="day">—</span>, <span id="date">—</span>
+                </div>
+              </div>
+              <hr class="my-4" />
+
+              <div class="text-center text-md-start">
+                <h1 class="h4 mb-1">Counter</h1>
+                <div class="counter" id="counter">00:00:00</div>                
+                <label for="userinput" class="form-label">Type below to start counting:</label>
+                <textarea
+                id="userinput"
+                class="form-control mb-3"
+                placeholder="Type here"
+                autocomplete="off"
+                rows="5"
+                ></textarea>
+                <button type="button" class="btn btn-primary mb-3" id="reset">Reset</button>
+              </div>
+              
+              <div class="text-center text-md-start">
+                <h1 class="h4 mb-1">Summary</h1>
+                <div class="card p-2" >
+                    <div class="d-flex flex-column flex-md-row justify-content-around align-items-start gap-3 summary-flex">             
+                        <div>
+                        <p>Characters count: <span id="char" class="font-weight-bold">0</span></p>
+                        <p>Words count: <span id="word" class="font-weight-bold">0</span></p>
+                        <p>Sentence count: <span id="sent" class="font-weight-bold">0</span></p>
+                        </div>
+                        <div>
+                        <p>Characters per second: <span id="charps" class="font-weight-bold">0</span></p>
+                        <p>Words per second: <span id="wordps" class="font-weight-bold">0</span></p>
+                        <p>Sentence per minute: <span id="sentpm" class="font-weight-bold">0</span></p>
+                        </div>
+
+                    </div>
+                </div>
+              </div>
+
+            </div>
+        </div>      
+    </div>
+
+    <script>
+        /*clock*/
+        const hrs12 = document.getElementById('fmt12');
+        const hrs24 = document.getElementById('fmt24');        
+        let hour12 = true;
+        const sysTZ = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+
+        function updateClock() {
+            const now = new Date();
+            let timeFormatter, dateFormatter, dayFormatter;
+            timeFormatter = new Intl.DateTimeFormat(undefined, {
+                timeStyle: 'medium',
+                hour12,
+                timeZone: sysTZ
+            });
+            dateFormatter = new Intl.DateTimeFormat(undefined, {
+                year: 'numeric', month: 'long', day: 'numeric',
+                timeZone: sysTZ
+            });
+            dayFormatter = new Intl.DateTimeFormat(undefined, {
+                weekday: 'long',
+                timeZone: sysTZ
+            });
+
+            document.getElementById('clck').textContent = timeFormatter.format(now);
+            document.getElementById('date').textContent = dateFormatter.format(now);
+            document.getElementById('day').textContent = dayFormatter.format(now);
+        }   
+
+        hrs12.addEventListener('change', () => {
+            hour12 = true;
+            updateClock();
+        });
+        hrs24.addEventListener('change', () => {
+            hour12 = false;
+            updateClock();
+        });
+        
+        setInterval(updateClock, 1000);
+
+        /*Counter*/        
+        let timerInterval;
+        let seconds = 0;
+        const counter = document.getElementById('counter');
+        const inputtext = document.getElementById('userinput');        
+        let char = document.getElementById('char');
+        let word = document.getElementById('word');
+        let sente = document.getElementById('sent');
+        let charps = document.getElementById('charps');
+        let wordps = document.getElementById('wordps');
+        let sentepm = document.getElementById('sentpm');
+
+        inputtext.addEventListener('focus', () => {
+            startTimer();
+        });
+        inputtext.addEventListener('blur', () => {
+            stopTimer();
+        });
+
+        inputtext.addEventListener('input', function () {
+            let content = this.value.trim(); 
+            char.textContent = content.length;
+            charps.textContent = (content.length/seconds).toFixed(2);
+
+            let wordList =  content.length ? content.split(/\s+/) : [];
+            let words = wordList.filter((ele)=>ele != ""); 
+            word.textContent = words.length;
+            wordps.textContent = (words.length/seconds).toFixed(2);
+            
+            let sentence = content.length
+                ? content.split(/\./).map(s => s.trim()).filter(s => s !== "")
+                : [];
+            sente.textContent = sentence.length;
+            sentepm.textContent = (sentence.length/(seconds/60)).toFixed(2);
+        });
+
+        document.getElementById('reset').addEventListener('click', () => {
+            resetCounter();
+        });
+
+        // Function to format time as HH:MM:SS
+        function formatTime(totalSeconds) {
+            let hrs = Math.floor(totalSeconds / 3600);
+            let mins = Math.floor((totalSeconds % 3600) / 60);
+            let secs = totalSeconds % 60;
+            return [hrs, mins, secs].map(v => v < 10 ? "0" + v : v).join(":");
+        }
+
+        function startTimer(){
+            if (!timerInterval) {
+                timerInterval = setInterval(() => {
+                    seconds++;
+                    counter.textContent = formatTime(seconds);
+                }, 1000);
+            }
+        }
+        function stopTimer(){
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+        function resetCounter(){
+            seconds = 0;
+            counter.textContent = "00:00:00";
+            inputtext.value='';
+            char.textContent=0;
+            word.textContent=0;
+            sente.textContent=0;
+            charps.textContent=0;
+            wordps.textContent=0;
+            sentepm.textContent=0;
+        }
+
+    </script>
+</body>    

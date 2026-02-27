@@ -1,0 +1,80 @@
+body {
+    background: #3f6a94;
+    color: #f7f7f7;
+}
+
+.card {
+    background: #12161c;
+    border-color: #1e2630;
+}
+
+.table-dark {
+    --bs-table-bg: #12161c;
+    --bs-table-striped-color: #d1d5db;
+    --bs-table-striped-bg: #151a22;
+}
+
+.table thead th {
+    border-bottom-color: #2a3442;
+}
+
+.muted {
+    color: #b5c7e1;
+}
+
+.amount {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.totals-row {
+    font-weight: 600;
+    border-top: 2px solid #2a3442;
+}
+
+.balance-row {
+    font-weight: 700;
+    font-size: 1.05rem;
+    border-top: 2px double #2a3442;
+}
+
+.form-inline-input {
+    min-width: 140px;
+}
+
+.form-inline-amount {
+    width: 120px;
+}
+
+.btn-xs {
+    padding: .15rem .4rem;
+    font-size: .775rem;
+}
+
+.badge-id {
+    background: #1f2937;
+    color: #cbd5e1;
+    border: 1px solid #2a3442;
+    font-weight: 600;
+    min-width: 2.2rem;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.invalid-feedback {
+    display: block;
+}
+
+/* Narrow screens: stack the add-row inputs */
+@media (max-width: 576px) {
+
+    .form-inline-input,
+    .form-inline-amount {
+        width: 100%;
+        min-width: auto;
+    }
+}

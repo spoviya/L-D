@@ -17,13 +17,66 @@
       return dt.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).replace(/ /g, '-');
     }
 
+    async function fetchStatements() {
+      try {
+          const response = await fetch('http://localhost:3000/statement');
+  
+          if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+  
+          const stmts = await response.json();
+          transactions= await stmts;
+          console.log(stmts);
+        } catch (error) {
+          console.error('Error fetching products:', error);
+          document.getElementById('state-err').innerHTML = `<p style="color:red;">Failed to load statement, try again.</p>`;
+          transactions= [];
+        }
+        renderTable();
+        setNextIdIfMissing(transactions);
+  }
+  
+    async function updateStatements(data) {
+      const res = await fetch('http://localhost:3000/statement', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const created = await res.json();  
+      console.log(created);
+      //transactions.push(created);  
+    }
+
+    async function patchStatements(id, partial) {
+      const res = await fetch(`http://localhost:3000/statement/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(partial)
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const updated = await res.json();
+      console.log(updated);
+      //const i = transactions.findIndex(s => s.id === id);
+      //if (i !== -1) transactions[i] = { ...transactions[i], ...updated };
+      
+    }
+
+    async function deleteStatements(id) {
+      const res = await fetch(`http://localhost:3000/statement/${id}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      //transactions = transactions.filter(s => s.id !== id);
+    }
+  
     function getStatementAry() {
       try { return JSON.parse(localStorage.getItem(STATEMENT)) || []; }
       catch { return []; }
     }
     function setStatementAry(arr) {
-      localStorage.setItem(STATEMENT, JSON.stringify(arr));
+      localStorage.setItem(STATEMENT, JSON.stringify(arr));     
     }
+
     function getNextId() {
       let n = parseInt(localStorage.getItem(STATEMENT_NXTID) || '1', 10);
       localStorage.setItem(STATEMENT_NXTID, String(n + 1));
@@ -36,8 +89,10 @@
       }
     }
 
-    let transactions = getStatementAry();
-    setNextIdIfMissing(transactions);
+    //let transactions = getStatementAry();
+    let transactions = [];
+    //setNextIdIfMissing(transactions);    
+    fetchStatements();
     let editingId = null; 
 
     const rowsBody = document.getElementById('rowsBody');
@@ -152,12 +207,8 @@
     
     form.addEventListener("submit", (event) => {
       clearErrors();
-      if (!form.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-      } else {
-        event.preventDefault(); 
-        const date = (addDate.value || '').trim();
+      event.preventDefault(); 
+      const date = (addDate.value || '').trim();
       const header = (addHeader.value || '').trim();
       const credit = parseFloat(addCredit.value);
       const debit  = parseFloat(addDebit.value);
@@ -178,7 +229,7 @@
       if (!valid) return;
 
       const newTxn = {
-        id: getNextId(),
+        id: String(getNextId()),
         date,
         header,
         credit: creditValid ? +credit.toFixed(2) : 0,
@@ -186,14 +237,13 @@
       };
 
       transactions.push(newTxn);
-      setStatementAry(transactions);
+     // setStatementAry(transactions);
+      updateStatements(newTxn);
       addHeader.value = '';
       addCredit.value = '';
       addDebit.value = '';
       addHeader.focus();
       renderTable();
-      }
-      form.classList.add("was-validated");
 
     },false);
 
@@ -207,7 +257,8 @@
       const btn = e.target.closest('button[data-action]');
       if (!btn) return;
       const action = btn.getAttribute('data-action');
-      const id = parseInt(btn.getAttribute('data-id'), 10);
+      //const id = parseInt(btn.getAttribute('data-id'), 10);
+      const id = btn.getAttribute('data-id');
 
       if (action === 'edit') {
         if (editingId !== null) return;
@@ -244,6 +295,12 @@
         return;
       }
 
+      const newTxn = {
+        date: edDate,
+        header: edHeader,
+        credit: creditValid ? +edCredit.toFixed(2) : 0,
+        debit: debitValid ? +edDebit.toFixed(2) : 0
+      };
       const idx = transactions.findIndex(t => t.id === id);
       if (idx !== -1) {
         transactions[idx] = {
@@ -253,7 +310,8 @@
           credit: creditValid ? +edCredit.toFixed(2) : 0,
           debit: debitValid ? +edDebit.toFixed(2) : 0
         };
-        setStatementAry(transactions);
+        //setStatementAry(transactions);
+        patchStatements(id,newTxn);
       }
       editingId = null;
       renderTable();
@@ -262,8 +320,9 @@
     function handleRemove(id) {
       if (!confirm('Remove this transaction?')) return;
       transactions = transactions.filter(t => t.id !== id);
-      setStatementAry(transactions);
+      //setStatementAry(transactions);
+      deleteStatements(id);
       renderTable();
     }
 
-    renderTable();
+    //renderTable();

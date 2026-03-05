@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Statement Viewer</title>
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+<link href="./task3-style.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container py-4">
+    <h1 class="h3 mb-3">Statement viewer</h1>
+
+    <div class="card mb-3">
+      <div class="card-body">
+        <form class="d-flex flex-wrap align-items-end gap-2" novalidate id="addstate">
+          <div>
+            <label for="addDate" class="form-label mb-1 muted">Date of Transaction</label>
+            <input type="date" id="addDate" class="form-control form-control-sm form-inline-input" required/>
+            <div id="dateErr" class="invalid-feedback d-none">Please select a date.</div>
+          </div>
+          <div>
+            <label for="addHeader" class="form-label mb-1 muted">Header</label>
+            <input type="text" id="addHeader" class="form-control form-control-sm form-inline-input" placeholder="like Food, Shopping.." required/>
+            <div id="headerErr" class="invalid-feedback d-none">Please enter a header.</div>
+          </div>
+          <div>
+            <label for="addCredit" class="form-label mb-1 muted">Credit</label>
+            <input type="number" id="addCredit" class="form-control form-control-sm form-inline-amount" min="0" step="0.01" placeholder="0.00" />
+          </div>
+          <div>
+            <label for="addDebit" class="form-label mb-1 muted">Debit</label>
+            <input type="number" id="addDebit" class="form-control form-control-sm form-inline-amount" min="0" step="0.01" placeholder="0.00" />
+          </div>
+          <div class="ms-auto">
+            <button  type='submit' id="btnAdd" class="btn btn-info btn-sm px-3">ADD</button>
+          </div>          
+        </form>
+        <div id="amountErr" class="invalid-feedback d-none mt-2">
+          Enter either a <strong>Credit</strong> or a <strong>Debit</strong> value greater than 0.
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-dark table-sm align-middle text-center">
+        <thead>
+          <tr>
+            <th style="width:48px;">Id</th>
+            <th>DateOfTransaction</th>
+            <th>Header</th>
+            <th class="text-end">Credit</th>
+            <th class="text-end">Debit</th>
+            <th class="text-nowrap text-center" style="width: 190px;">Update</th>
+          </tr>
+        </thead>
+        <tbody id="rowsBody" class="text-centers">
+          <!-- placeholder for dynamic table rows -->
+        </tbody>
+        <tfoot>
+          <tr class="totals-row">
+            <td></td>
+            <td colspan="2">Totals</td>
+            <td id="totCredit" class="amount">0</td>
+            <td id="totDebit" class="amount">0</td>
+            <td></td>
+          </tr>
+          <tr class="balance-row">
+            <td></td>
+            <td colspan="2">Balance</td>
+            <td colspan="2" id="balance" class="amount">0</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <script src="task3.js" type="module"></script>
+</body>
+</html>
